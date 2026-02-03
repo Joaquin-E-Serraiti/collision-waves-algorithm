@@ -103,3 +103,27 @@ The number of waves in each collision cycle is the same as the number of origin 
 The number of origin points present in each collision cycle is $2^{x-1}+1$, $x$ being the number of the collision cycle, starting from 1. $x$ can only be equal or lower than $\log_{2}{(D)}$.
 
 The maximum radius each wave would reach before collision is equal to $\frac {D}{2^x}$.
+
+Assuming an empty grid, the number of nodes each wave would have explored before collision is equal to $2 \frac{D}{2^x}(\frac{D}{2^x}+1)$. This is a worst-case scenario. If the grid had obstacles or dead ends, there would be fewer explored nodes.
+
+There are 2 waves in the first collision cycle, so the total number of nodes explored in that cycle would be $4 \frac{D}{2}(\frac{D}{2}+1)$, which can be simplified to $D^2+2D$.
+
+In each collision cycle the number of waves roughly doubles and the radius each wave reaches gets halved. Because 2 waves with radius $R$ explore roughly half as much as 1 wave with radius $2R$, the total number of nodes explored in each collision cycle also gets halved.
+
+So, if the number of nodes explored in the first collision cycle was $N$, the number of nodes explored in the next cycle would be $\frac{N}{2}$, and in the next would be  $\frac{N}{4}$, and so on. This would be the same as adding $N+\frac{N}{2}+\frac{N}{4}+\frac{N}{8}+ \dots $, $\log_{2}{(D)}$ times. That sum converges to $2N$.
+
+If $N$ equals $D^2+2D$, $2N$ would be equal to $2(D^2)+4D$. So, the total number of nodes that the algorithm explores is roughly 2(D^2)+4D, where $D$ is the length of the shortest path from start node to the end node.
+
+### How many nodes are kept in memory
+
+The algorithm only remembers the nodes at the frontier of each wave. To be precise, it remembers the nodes of the last 2 layers of each wave.
+
+A wave collides when reaching a radius of $\frac {D}{2^x}$. The maximum number of nodes explored by that wave that are in memory is $4(\frac {D}{2^x})+4(\frac {D}{2^x}-1)$, or $4(\frac {2D}{2^x}-1)$, or $8(\frac {D}{2^x})-4$. The max number of nodes in memory per wave depends on the radius of the wave.
+
+A wave of radius $R$ has $8R-4$ nodes in memory. A wave of radius $2R$ has $16R-4$ nodes in memory. 2 waves of radius $R$ have, in total, $16R-8$ nodes in memory. So, 2 waves of radius $R$ have 4 less nodes in memory than 1 wave of radius $2R$.
+
+Because the number of waves roughly doubles per collision cycle, and the radius of each wave gets halved, the sum of the maximum number of nodes per wave stored in memory should slightly decrease with each collision cycle. So, the total number of wave-frontier nodes in memory at any moment shouldn’t surpass $8D-4$ (approximately).
+
+To that we have to add the number of nodes from the origin points, which can’t surpass $D$ because when the number of nodes in the origin point reaches $D$, it means that a shortest path has been found.
+
+Then, the total number of nodes in memory shouldn’t surpass $9D-4$ (approximately).
