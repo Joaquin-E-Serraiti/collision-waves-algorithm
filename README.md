@@ -48,5 +48,58 @@ In general, the closer a node is to a shortest path, the more times it will get 
 
 ## Performance calculations
 
-Let’s assume we know that the shortest path from a node A and a node B has a distance of $D$ nodes.
+Let’s assume we know that the shortest path from a node A to a node B has a length of $D$ nodes.
 
+### Radius of each wave
+
+Each of the first 2 waves would reach a radius equal to $\frac{D}{2}$ before collision. The waves of the next collision cycle would reach a radius of $\frac{D}{4}$. The next $\frac{D}{8}$, and so on...
+
+The radius before collision of each wave would be of $\frac{D}{2^x}$ nodes, where $x$ is the number of the collision cycle (the number of the first collision cycle would be 1).
+
+### Number of origin points per collision cycle
+
+There is 1 new origin point in the first collision cycle, there are 2 in the second collision cycle, 4 on the third and 8 on the fourth.
+
+The number of newly generated origin points in each cycle would be $2^{x-1}$.
+
+The number of origin points already present in each cycle would be $2^{x-1}+1$.
+
+### Number of collision cycles until the shortest path is generated
+
+Now, if the max radius of each wave before collision starts at $\frac{D}{2}$, and in each collision cycle it gets halved, the max radius of the waves before collision would reach 1 node in approximately $\log_{2}{(D)}$ collision cycles.
+
+When the max radius reaches 1 node, it means that all origin points form a “chain” of orthogonally adjacent nodes from the “start” node to the “end” node. Because all origin points form part of some shortest path, this “chain” is a shortest path from the start node to the end node.
+
+### Area of a wave in a 2d square grid
+
+The area of a wave would be all the nodes it has covered / explored.
+
+The waves expand layer by layer, incrementing the radius by 1 node / square.
+
+Let’s assume the grid is empty. In the first layer, there are 4 squares: the squares orthogonally adjacent to the origin point (there can be 6 squares if the origin point is on an edge, meaning that it is formed by 2 squares instead of 1, but I will omit this case for simplicity). The second layer has 8 squares, the third has 12 squares, and the fourth has 16. 
+
+The number of squares per layer grows linearly: each layer has 4 more squares than the previous one.
+
+In an empty grid, the number of squares a layer has is $L \times 4$, with $L$ being the number of the layer.
+
+A wave of radius $R$ would have $R$ layers. The last layer would have $R \times 4$ squares. The previous one would have $(R-1) \times 4$.
+
+The sum of the squares in all the layers of a wave (which is the number of all the squares it has explored), is equal to $(1 \times 4)+(2 \times 4)+(3 \times 4)$… Until reaching $(R \times 4)$. That is equal to $(1 + 2 + 3 + \dots + R) \times 4$, or $\frac{R(R+1)}{2} \times 4$, or $2R(R+1)$.
+
+So *the nodes covered / explored by a wave is equal to $2R(R+1)$, where $R$ is the radius of the wave and how many layers it has.
+
+### Difference in area
+
+If you have 1 wave of radius $R$ and another wave of radius $2R$, the bigger wave would have explored $4R(2R+1)$ nodes, which is the same as $8(R^2)+4R$, and the smaller wave would have explored $2R(R+1)$ nodes, which is the same as $2(R^2)+2R$.
+
+2 waves of radius $R$ would have explored $4(R^2)+4R$ nodes, which is roughly half of what 1 wave of radius $2R$ would have explored.
+
+### How many nodes are explored to find a shortest path
+
+The number of collision cycles required to find a shortest path is  $\log_{2}{(D)}$ (aprox.).
+
+The number of waves in each collision cycle is the same as the number of origin points present in each collision cycle (because the waves are expanded from the origin points).
+
+The number of origin points present in each collision cycle is $2^{x-1}+1$, $x$ being the number of the collision cycle, starting from 1. $x$ can only be equal or lower than $\log_{2}{(D)}$.
+
+The maximum radius each wave would reach before collision is equal to $\frac {D}{2^x}$.
