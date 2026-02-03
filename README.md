@@ -36,7 +36,7 @@ Now, with the new origin point, 3 waves are expanded. However, because there is 
 
 In the next collision cycle, 5 waves would be expanded and 4 new origin points would be generated. Next would be 9 waves and 8 new origin points. Then it would be 17 waves and 16 new origin points. And so on.
 
-In each collision cycle, the radii of the waves gets halved and the number of origin points roughly doubles. The distance between the newly generated origin points and the origin points of the waves that collided also gets halved.
+In each collision cycle, the radius each wave has to reach to collide gets halved and the number of origin points roughly doubles. The distance between the newly generated origin points and the origin points of the waves that collided also gets halved.
 
 This occurs until the waves collide when they have only one layer, which means that the new origin points are adjacent to the previous origin points. At that moment, a shortest path has been found.
 
