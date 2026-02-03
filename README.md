@@ -10,9 +10,9 @@ I made this algorithm because, while working with 2d grids, I noticed how some p
 
 ![Visualization of the process](/images/collision_waves_algorithm-visualization-gif.gif)
 
-The algorithm generates “waves” that expand and collide with each other. Each wave explores all the nodes it covers, but only the nodes at the frontier are kept in memory. The rest of the nodes are forgotten. 
+The algorithm generates “waves” that expand and collide with each other. Each wave explores all the nodes it covers, but only keeps in memory the nodes at the frontier. The rest of the nodes are forgotten. 
 
-At the point of collision between 2 waves, a “origin point” is generated. This origin point is guaranteed to be part of some shortest path. From each origin point, new waves are expanded to later collide and repeat the cycle. Each cycle, the new origin points are generated closer to the previous origin points. 
+At the point of collision between 2 waves, an “origin point” is generated. This origin point is guaranteed to be part of some shortest path. From each origin point, new waves are expanded to later collide and repeat the cycle. Each cycle, the new origin points are generated closer to the previous origin points. 
 
 After enough expansions and collisions, the new origin points are generated adjacent to the previous origin points, and at that moment all the origin points form a shortest path from the start to the end / goal node.
 
