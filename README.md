@@ -18,6 +18,8 @@ After enough expansions and collisions, the new origin points are generated adja
 
 ### The first collision cycle
 
+![Image of first collision cycle](/images/first-collision-cycle.png)
+
 The algorithm starts with 2 origin points: 1 at the “start” node and 1 at the “end” node. It can also start with just 1 origin point at the start node, if the goal is unknown.
 
 From each one of the 2 starting origin points, a wave is expanded. Both waves grow at the same pace, meaning that the “radii” of the waves are always the same. The waves collide when the frontier of one wave makes contact with the frontier of the other wave. Wherever those waves collide, a new origin point is generated.
@@ -29,6 +31,8 @@ Because the 2 waves expand at the same pace, the new origin point is guaranteed 
 This is the first “collision cycle”. After the new origin point is generated, the waves reset and start to expand again in the next collision cycle.
 
 ### The second collision cycle
+
+![Image of second collision cycle](/images/second-collision-cycle.png)
 
 Now, with the new origin point, 3 waves are expanded. However, because there is a new origin point, the waves now need to expand less to collide with each other. In fact, because the new origin point is in the middle, each wave only needs to expand half as much as the waves of the previous collision cycle (meaning that they would have half as many layers, or half the radius). In this collision cycle, 2 new origin points would be generated: one between wave 1 and wave 2, and one between wave 2 and wave 3.
 
