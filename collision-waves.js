@@ -20,7 +20,6 @@ function isNeighbourValid(nodeIndex,neighbourIndex,columns,rows) {
 
 function expandWave(originPointId, neighbouringOriginPointsId, originPointsMap, maxId, newOriginPoints,grid,collisionDirection) {
 
-    if (!grid.algorithmCanRun) {return}
     let collisionFound = false;
 
     const newLayer = new Set()
@@ -39,12 +38,10 @@ function expandWave(originPointId, neighbouringOriginPointsId, originPointsMap, 
     }
 
     for (const nodeIndex of originPointLayer2) {
-        if (!grid.algorithmCanRun) {return}
 
         const candidates = [nodeIndex+1,nodeIndex-1,nodeIndex+grid.COLUMNS,nodeIndex-grid.COLUMNS]
 
         for (const neighbourIndex of candidates) {
-            if (!grid.algorithmCanRun) {return}
 
             if (grid.squares_states[neighbourIndex] === grid.STATES.WALL) {continue}
             if (!isNeighbourValid(nodeIndex,neighbourIndex,grid.COLUMNS,grid.ROWS)) {
@@ -89,12 +86,10 @@ async function expansionCycle(originPointsMap,maxId,newOriginPoints,grid) {
     let collisionDirection = null; // null: direction not yet identified; "next": direction = next origin point wave; "prev": direction = previous origin point wave
   
     while (currentPointId !== null) {
-        if (!grid.algorithmCanRun) {return}
         const originPointData = originPointsMap.get(currentPointId);
 
         const result = await expandWave(currentPointId,originPointData.
             neighbouringOriginPointsId,originPointsMap,maxId,newOriginPoints,grid,collisionDirection);
-        if (!grid.algorithmCanRun) {return}
         const newLayer = result[0]
         collisionDirection = result[1]
 
@@ -112,20 +107,15 @@ async function collisionCycle(originPointsMap,maxId,grid) {
     const newOriginPoints = [];
     let expansionsCounter = 0;
     
-    colorOriginPoints(originPointsMap,grid);
     while (newOriginPoints.length === 0) {
-        if (!grid.algorithmCanRun) {return}
         await expansionCycle(originPointsMap,maxId,newOriginPoints,grid);
-        if (!grid.algorithmCanRun) {return}
         expansionsCounter++;
     }
     for (const originPointData of originPointsMap) {
-        if (!grid.algorithmCanRun) {return}
         originPointData[1].layer1 = new Set(originPointData[1].originPointIndices);
         originPointData[1].layer2 = new Set(originPointData[1].originPointIndices);
     }
     for (const newOriginPoint of newOriginPoints) {
-        if (!grid.algorithmCanRun) {return}
         const prevOriginPointId = newOriginPoint.prevOriginPointId;
         const nextOriginPointId = newOriginPoint.nextOriginPointId;
         const indices = newOriginPoint.indices;
@@ -151,29 +141,8 @@ export async function collisionWaves(grid) {
     let numberOfExpansionsForCollision = Infinity;
 
     while (numberOfExpansionsForCollision > 1) {
-        if (!grid.algorithmCanRun) {return}
         numberOfExpansionsForCollision = await collisionCycle(originPointsMap,maxId,grid);
-        if (!grid.algorithmCanRun) {return}
     }
-
-    colorOriginPoints(originPointsMap,grid)
 
     return originPointsMap;
-}
-
-function colorOriginPoints(originPointsMap,grid) {
-    for (const ogData of originPointsMap) {
-        const ogIndices = ogData[1].originPointIndices;
-        for (const index of ogIndices) {
-            if (index === grid.endIndex) {
-                grid.colorSquare(index,grid.COLORS.END);
-                continue
-            } else if (index === grid.startIndex) {
-                grid.colorSquare(index,grid.COLORS.START);
-                continue
-            }
-            grid.colorSquare(index,"rgb(154, 221, 255)")
-        }
-    }
-
 }
