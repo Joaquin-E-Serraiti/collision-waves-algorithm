@@ -148,12 +148,3 @@ If the number of nodes in the frontiers of the waves doesn't increase slower tha
 - I might have done mistakes while analizing the algorithm's performance or writing this document. Please let me know if you notice something and I will try to fix it or improve it.
 
 - I'm sure the code for the implementation of this algorithm can be polished further. If you see a bug or something that could be improved, feel free to let me know.
-
-## Optimizations
-
-I have thought about and managed to implement optimizations to this algorithm, aimed to reduce the number of nodes that need to be explored.
-
-- [Optimization 1: Wave boundaries](/optimization-1.js)
-- [Optimization 2: Prioritization of expansions based on wave area](optimization-2.js)
-
-If you think of other cool optimizations, feel free to try implementing them or share them with me. I'd be happy to know about them.
