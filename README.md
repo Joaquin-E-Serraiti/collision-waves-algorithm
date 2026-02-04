@@ -131,9 +131,11 @@ Then, the total number of nodes in memory shouldn’t surpass $9D-4$ (approximat
 
 $D$ = length of the shortest path
 
-Maximum number of nodes explored (approximately) = $2(D^2)+4D$
+In a 2d square grid:
 
-Maximum number of nodes in memory (approximately) = $9D-4$
+- Maximum number of nodes explored (approximately) = $2(D^2)+4D$
+
+- Maximum number of nodes in memory (approximately) = $9D-4$
 
 The advantage of this algorithm is that it only needs to store in memory the nodes at the frontier of each wave, which, in a 2d square grid, is a lot less than all the nodes covered by each wave. In fact, the bigger the wave, the bigger the memory save. 
 
@@ -153,3 +155,5 @@ I have thought about and managed to implement optimizations to this algorithm, a
 
 - [Optimization 1: Wave boundaries](/optimization-1.js)
 - [Optimization 2: Prioritization of expansions based on wave area](optimization-2.js)
+
+If you think of other cool optimizations, feel free to try implementing them or share them with me. I'd be happy to know about them.
