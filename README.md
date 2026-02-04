@@ -6,6 +6,9 @@ This is a pathfinding algorithm. It is guaranteed to find some shortest path fro
 
 I made this algorithm because, while working with 2d grids, I noticed how some pathfinding algorithms might need to store a lot of nodes in memory to later reconstruct the shortest path from any node to any other. This algorithm is an alternative that I know works on 2d and 3d grids, and believe could work on other kinds of graphs.
 
+- Here is the [implementation code](/collision-waves.js) of the algorithm.
+- You can visualize the algorithm using [this tool](https://joaquin-e-serraiti.github.io/JES-Interactive-Grid/). Just select "Collision Waves" as the pathfinding algorithm in the left-side menu.
+
 ## How it works
 
 ![Visualization of the process](/images/collision_waves_algorithm-visualization-gif.gif)
@@ -123,3 +126,30 @@ Because the number of waves roughly doubles per collision cycle, and the radius 
 To that we have to add the number of nodes from the origin points, which can’t surpass $D$ because when the number of nodes from the origin points reaches $D$, it means that a shortest path has been found.
 
 Then, the total number of nodes in memory shouldn’t surpass $9D-4$ (approximately).
+
+## What to expect of this algorithm
+
+$D$ = length of the shortest path
+
+Maximum number of nodes explored (approximately) = $2(D^2)+4D$
+
+Maximum number of nodes in memory (approximately) = $9D-4$
+
+The advantage of this algorithm is that it only needs to store in memory the nodes at the frontier of each wave, which, in a 2d square grid, is a lot less than all the nodes covered by each wave. In fact, the bigger the wave, the bigger the memory save. 
+
+So, the advantage comes from the fact that the size of the frontier of a wave grows slower than its area. However, if I'm not mistaken, this wouldn't work the same way on some other types of graphs.
+
+If the number of nodes in the frontiers of the waves doesn't increase slower than the number of nodes in the area of the waves, then this algorithm wouldn't be very convenient.
+
+## Considerations
+
+- I might have done mistakes while analizing the algorithm's performance or writing this document. Please let me know if you notice something and I will try to fix it or improve it.
+
+- I'm sure the code for the implementation of this algorithm can be polished further. If you see a bug or something that could be improved, feel free to let me know.
+
+## Optimizations
+
+I have thought about and managed to implement optimizations to this algorithm, aimed to reduce the number of nodes that need to be explored.
+
+- [Optimization 1: Wave boundaries](/optimization-1.js)
+- [Optimization 2: Prioritization of expansions based on wave area](optimization-2.js)
