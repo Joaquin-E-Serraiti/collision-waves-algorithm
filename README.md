@@ -2,7 +2,7 @@
 
 ![Visualization of the result produced by the algorithm](/images/collision-waves-result.png)
 
-This is a pathfinding algorithm. It is guaranteed to find some shortest path from any node to any other, if there is one. This algorithm only stores some of the nodes it explores in memory, not all of them. But it needs to re-explore some of them many times. This way, it trades off space complexity for time complexity.
+This is a pathfinding algorithm. In unweighted graphs, it is guaranteed to find some shortest path from any node to any other, if there is one. This algorithm only stores some of the nodes it explores in memory, not all of them. But it needs to re-explore some of them many times. This way, it trades off space complexity for time complexity.
 
 I made this algorithm because, while working with 2d grids, I noticed how some pathfinding algorithms might need to store a lot of nodes in memory to later reconstruct the shortest path from any node to any other. This algorithm is an alternative that I know works on 2d and 3d grids, and believe could work on other kinds of graphs.
 
@@ -27,7 +27,9 @@ The algorithm starts with 2 origin points: 1 at the “start” node and 1 at th
 
 From each one of the 2 starting origin points, a wave is expanded. Both waves grow at the same pace, meaning that the “radii” of the waves are always the same. The waves collide when the frontier of one wave makes contact with the frontier of the other wave. Wherever those waves collide, a new origin point is generated.
 
-If both waves collide at the edge of 2 nodes instead of colliding at an exact node, then those 2 nodes form a new single origin point. 
+If both waves collide at the edge of 2 nodes instead of colliding at an exact node, then those 2 nodes form a new single origin point.
+
+If the frontiers make contact in multiple nodes / edges, it means that there are multiple shortest paths. In those cases only the first node/edge where the collison occured is considered to become an origin point.
 
 Because the 2 waves expand at the same pace, the new origin point is guaranteed to be at the middle of the 2 starting origin points. 
 
