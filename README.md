@@ -93,7 +93,7 @@ A wave of radius $R$ would have $R$ layers. The last layer would have $R \times 
 
 The sum of the squares in all the layers of a wave (which is the number of all the squares it has explored), is equal to $(1 \times 4)+(2 \times 4)+(3 \times 4)$… Until reaching $(R \times 4)$. That is equal to $(1 + 2 + 3 + \dots + R) \times 4$, or $\frac{R(R+1)}{2} \times 4$, or $2R(R+1)$.
 
-So the number of nodes covered / explored by a wave is equal to $2R(R+1)$, where $R$ is the radius of the wave and how many layers it has.
+So, in an empty grid, the number of nodes covered / explored by a wave is equal to $2R(R+1)$, where $R$ is the radius of the wave and how many layers it has. This is the worst-case scenario; if the grid wasn't empty and had obstacles or dead-ends, the number of nodes explored would be less, not more.
 
 ### Difference in area
 
@@ -105,7 +105,7 @@ If you have 1 wave of radius $R$ and another wave of radius $2R$, the bigger wav
 
 The maximum radius each wave would reach before collision is equal to $\frac {D}{2^x}$, $x$ being the number of the collision cycle, starting from 1. $x$ can only be equal or lower than $\log_{2}{(D)}$ (approximately).
 
-Assuming an empty grid, the number of nodes each wave would have explored before collision is equal to $2 \frac{D}{2^x}(\frac{D}{2^x}+1)$. This is a worst-case scenario. If the grid had obstacles or dead ends, there would be fewer explored nodes.
+Assuming an empty grid, the number of nodes each wave would have explored before collision is equal to $2 \frac{D}{2^x}(\frac{D}{2^x}+1)$.
 
 There are 2 waves in the first collision cycle, so the total number of nodes explored in that cycle would be $4 \frac{D}{2}(\frac{D}{2}+1)$, which can be simplified to $D^2+2D$.
 
@@ -113,7 +113,7 @@ In each collision cycle the number of waves roughly doubles and the radius each 
 
 So, if the number of nodes explored in the first collision cycle was $N$, the number of nodes explored in the next cycle would be $\frac{N}{2}$, and in the next would be  $\frac{N}{4}$, and so on. This would be the same as adding $N+\frac{N}{2}+\frac{N}{4}+\frac{N}{8}+ \dots $, $\log_{2}{(D)}$ times. That sum converges to $2N$.
 
-If $N$ equals $D^2+2D$, $2N$ would be equal to $2(D^2)+4D$. So, the total number of nodes that the algorithm explores in an empty grid is roughly $2(D^2)+4D$ (worst-case scenario), where $D$ is the length of the shortest path from start node to the end node.
+If $N$ equals $D^2+2D$, $2N$ would be equal to $2(D^2)+4D$. So, the total number of nodes that the algorithm explores in an empty grid is roughly $2(D^2)+4D$ (an empty grid is the worst-case scenario), where $D$ is the length of the shortest path from start node to the end node.
 
 ### How many nodes are kept in memory
 
