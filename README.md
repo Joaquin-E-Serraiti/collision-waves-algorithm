@@ -113,7 +113,7 @@ In each collision cycle the number of waves roughly doubles and the radius each 
 
 So, if the number of nodes explored in the first collision cycle was $N$, the number of nodes explored in the next cycle would be $\frac{N}{2}$, and in the next would be  $\frac{N}{4}$, and so on. This would be the same as adding $N+\frac{N}{2}+\frac{N}{4}+\frac{N}{8}+ \dots $, $\log_{2}{(D)}$ times. That sum converges to $2N$.
 
-If $N$ equals $D^2+2D$, $2N$ would be equal to $2(D^2)+4D$. So, the total number of nodes that the algorithm explores in an empty grid is roughly $2(D^2)+4D$ (an empty grid is the worst-case scenario), where $D$ is the length of the shortest path from start node to the end node.
+If $N$ equals $D^2+2D$, $2N$ would be equal to $2(D^2)+4D$. So, the total number of node explorations (including re-explorations) that the algorithm does in an empty grid is roughly $2(D^2)+4D$ (an empty grid is the worst-case scenario), where $D$ is the length of the shortest path from start node to the end node.
 
 ### How many nodes are kept in memory
 
@@ -135,9 +135,9 @@ $D$ = length of the shortest path
 
 In a 2d square grid:
 
-- Maximum number of nodes explored (approximately) = $2(D^2)+4D$
+- Maximum number of node explorations, including re-explorations = $2(D^2)+4D$ (approximately)
 
-- Maximum number of nodes in memory (approximately) = $9D-4$
+- Maximum number of nodes in memory = $9D-4$ (approximately)
 
 The advantage of this algorithm is that it only needs to store in memory the nodes at the frontier of each wave, which, in a 2d square grid, is a lot less than all the nodes covered by each wave. In fact, the bigger the wave, the bigger the memory save. 
 
