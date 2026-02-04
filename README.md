@@ -76,6 +76,8 @@ The area of a wave would be all the nodes it has covered / explored.
 
 The waves expand layer by layer, incrementing the radius by 1 node / square.
 
+![Wave layers](/images/wave-layers.jpg)
+
 Let’s assume the grid is empty. In the first layer, there are 4 squares: the squares orthogonally adjacent to the origin point (there can be 6 squares if the origin point is on an edge, meaning that it is formed by 2 squares instead of 1, but I will omit this case for simplicity). The second layer has 8 squares, the third has 12 squares, and the fourth has 16. 
 
 The number of squares per layer grows linearly: each layer has 4 more squares than the previous one.
