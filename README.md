@@ -149,4 +149,4 @@ If the number of nodes in the frontiers of the waves doesn't increase slower tha
 
 - I might have done mistakes while analizing the algorithm's performance or writing this document. Please let me know if you notice something and I will try to fix it or improve it.
 
-- I'm sure the code for the implementation of this algorithm can be polished further. If you see a bug or something that could be improved, feel free to let me know.
+- The code for the implementation of this algorithm might be messy and not very readable. It might also have some bugs or inefficiencies. If you see a bug or something that could be improved, feel free to let me know.
